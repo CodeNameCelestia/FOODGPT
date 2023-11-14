@@ -1,4 +1,13 @@
 .login-link {
-    font-family: 'Your Desired Font', sans-serif;
+    font-family: sans-serif;
     text-decoration: none; 
 }
+
+.logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo img {
+    margin-right: 5px; 
+  }
