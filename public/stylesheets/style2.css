@@ -1,5 +1,4 @@
 .login-link {
-    font-family: 'Your Desired Font', sans-serif; /* Replace with your desired font */
-    text-decoration: none; /* Remove underline */
-    /* Add any other styles you want for the login link */
+    font-family: 'Your Desired Font', sans-serif;
+    text-decoration: none; 
 }

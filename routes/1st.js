@@ -1,6 +1,3 @@
-var express = require("express");
-var router = express.Router();
-
 window.addEventListener('DOMContentLoaded', event => {
 
     // Navbar shrink function
