@@ -2,12 +2,17 @@
     font-family: sans-serif;
     text-decoration: none; 
 }
-
 .logo {
-    display: flex;
-    align-items: center;
-  }
-  
-  .logo img {
-    margin-right: 5px; 
-  }
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  margin-right: 5px; 
+}
+
+.date{
+font-family: sans-serif cursive;
+font-size: 1rem;
+font-weight: 100;
+}
