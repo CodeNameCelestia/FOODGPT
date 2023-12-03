@@ -11,10 +11,8 @@ const config = {
     secret: process.env.SECRET,
     baseURL: process.env.BASEURL,
     clientID: process.env.CLIENTID,
-    issuerBaseURL: process.env.ISSUER
-  };
-
-
+    issuerBaseURL: process.env.ISSUER,
+};
 
 var app = express();
 app.set("views", "views");
@@ -24,9 +22,8 @@ app.use(express.urlencoded({extended:true}));
 app.use(express.static("public"));
 app.use(bodyParser.json());
 
-
-
-const foodBot = new FoodBot("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");
+// Initializing FoodBot instance separately
+const foodBot = new FoodBot(process.env.OPENAI_API_KEY);
 
 app.post('/chat', async (req, res) => {
   const { user_input } = req.body;
@@ -34,8 +31,7 @@ app.post('/chat', async (req, res) => {
   res.json({ reply: chatGPTReply });
 });
 
-
-//auth
+// Auth middleware using config
 app.use(auth(config));
 
 app.get('/foodbot', (req, res) => {
