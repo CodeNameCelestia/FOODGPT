@@ -54,6 +54,7 @@ body {
     background-color: #5c5c5c;
     align-self: flex-start;
     margin-right: auto;
+    white-space: pre-line;
     text-align: left; /* Align bot messages to the left */
 }
 
