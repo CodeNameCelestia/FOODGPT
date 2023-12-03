@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FoodGPT</title>
+  <link rel="icon" href="https://i.imgur.com/fgmRaeZ.gif" type="image/x-icon" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/stylesheets/style3.css" />
+</head>
+<body>
+ 
+<a href="/"><button class="button-54" role="button">Homepage</button></a>
+  <div id="chat-container" class="chat-container">
+    <h1><img src="https://i.imgur.com/fgmRaeZ.gif" alt="Logo" width="30" height="30"> FoodGPT Chat</h1>
+    <div id="result-container" class="result-container">
+        <!-- Previous prompts and responses will be added here dynamically -->
+    </div>
+    <form id="chat-form" class="chat-form">
+        <input type="text" id="prompt" name="prompt" required placeholder="Message FoodGPT" class="prompt">
+        <button type="button" onclick="submitPrompt()" class="button-sub">Submit</button>
+    </form>
+</div>
+
+
+    <script>
+async function typeWriterEffect(element, text, speed) {
+  let currentChar = 0;
+  const typeWriterInterval = setInterval(() => {
+    if (currentChar < text.length) {
+      element.innerHTML = '';  // Clear existing content
+      element.innerHTML += text.substring(0, currentChar + 1);
+      currentChar++;
+    } else {
+      clearInterval(typeWriterInterval);
+    }
+  }, speed);
+}
+
+    
+      async function submitPrompt() {
+        const prompt = document.getElementById('prompt').value;
+        const resultContainer = document.getElementById('result-container');
+    
+        // Create a new paragraph for the user prompt
+        const userPrompt = document.createElement('p');
+        userPrompt.classList.add('chat-bubble', 'user-bubble');
+        userPrompt.innerHTML = 'User: ' + prompt;
+        resultContainer.appendChild(userPrompt);
+    
+        // You may want to use fetch or another method to send the prompt to your server
+        // and get the result. For simplicity, I'll simulate it here.
+        const response = await fetch('/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ user_input: prompt }),
+        });
+        
+        const data = await response.json();
+        const result = data.reply;
+        
+        
+        // Create a new paragraph for the FoodGPT response
+        const foodGPTResponse = document.createElement('p');
+        foodGPTResponse.classList.add('chat-bubble', 'chat-gpt-bubble');
+        foodGPTResponse.innerHTML = 'FoodGPT: ' + result;
+        resultContainer.appendChild(foodGPTResponse);
+    
+        // Clear the input field
+        document.getElementById('prompt').value = '';
+    
+        // Simulate typing effect for the result
+        await typeWriterEffect(foodGPTResponse, result, 50);
+    
+        // Adjust the height of the result container
+        resultContainer.scrollTop = resultContainer.scrollHeight;
+      }
+    </script>
+</body>
+</html>
