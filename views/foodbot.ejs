@@ -6,10 +6,32 @@
   <link rel="icon" href="https://i.imgur.com/fgmRaeZ.gif" type="image/x-icon" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/stylesheets/style3.css" />
+
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+  <link rel="stylesheet" href="/stylesheets/style2.css" />
 </head>
 <body>
- 
-<a href="/"><button class="button-54" role="button">Homepage</button></a>
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="/">
+          <h1>FoodBot</h1></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fas fa-bars ms-1"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+              <li class="nav-item"><a class="nav-link" href="/">Homepage</a></li>
+              <% if(!isAuthenticated) { %>
+                  <li class="nav-item"><a class="nav-link login-link" href="/login/">Login</a></li>
+              <% } else { %>
+                  <li class="nav-item"><a class="nav-link" href="/logout/">Logout</a></li>
+              <% } %>
+          </ul>
+      </div>
+  </div>
+    </nav>
+<!-- <a href="/"><button class="button-54" role="button">Homepage</button></a> -->
   <div id="chat-container" class="chat-container">
     <h1><img src="https://i.imgur.com/fgmRaeZ.gif" alt="Logo" width="30" height="30"> FoodGPT Chat</h1>
     <div id="result-container" class="result-container">
@@ -69,7 +91,7 @@ async function submitPrompt() {
   // Clear the input field
   document.getElementById('prompt').value = '';
 
-  await typeWriterEffect(foodGPTResponse, result, 30);
+  await typeWriterEffect(foodGPTResponse, result, 25);
     
   // Adjust the height of the result container
   resultContainer.scrollTop = resultContainer.scrollHeight;

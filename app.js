@@ -35,8 +35,13 @@ app.post('/chat', async (req, res) => {
 app.use(auth(config));
 
 app.get('/foodbot', (req, res) => {
-  res.render('foodbot'); // Renders views/foodbot.ejs
+  res.render('foodbot', { 
+    title: 'FOODGPT',
+    isAuthenticated: req.oidc.isAuthenticated(),
+    user: req.oidc.user,
+  });
 });
+
 
 app.use('/', indexRouter);
 

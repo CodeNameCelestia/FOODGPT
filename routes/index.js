@@ -10,6 +10,13 @@ router.get("/", (req, res) => {
     });
 });
 
-
+router.get("/foodbot", (req, res) => {
+    console.log(req.oidc.isAuthenticated());
+    res.render("foodbot", { 
+        title: "FOODGPT", 
+        isAuthenticated: req.oidc.isAuthenticated(),
+        user: req.oidc.user,
+    });
+});
 
 module.exports = router;

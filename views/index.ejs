@@ -43,7 +43,9 @@
                 <div class="masthead-subheading">Welcome To <%= title %></div>
             <% } %>
             <div class="masthead-heading text-uppercase">It's Nice To Meet You</div>
-            <a class="btn btn-primary btn-xl text-uppercase" href="http://localhost:3000/foodbot"><img src="https://i.imgur.com/fgmRaeZ.gif" alt="Logo" width="30" height="30">  Try Me Now</a>
+            <a id="tryMeNowButton" class="btn btn-primary btn-xl text-uppercase" href="http://localhost:3000/foodbot">
+                <img src="https://i.imgur.com/fgmRaeZ.gif" alt="Logo" width="30" height="30">  Try Me Now
+            </a>
         </div>
     </header>
     
@@ -349,9 +351,29 @@
             easing: 'ease-out-back',
             duration: 800
         });
+        
     </script>
 
     <script>
+
+document.addEventListener('DOMContentLoaded', function() {
+        const tryMeNowButton = document.getElementById('tryMeNowButton');
+
+        tryMeNowButton.addEventListener('click', function(event) {
+            // Check if the user is authenticated (you need a way to determine this)
+            // For example, assuming isAuthenticated is a global variable
+            const isAuthenticated = <%= isAuthenticated %>; // Make sure to pass this value from the server
+
+            if (!isAuthenticated) {
+                // If the user is not authenticated, prevent the default link behavior
+                event.preventDefault();
+                // You can show a message to the user or perform other actions
+                alert('Please log in to access this feature');
+            }
+            // If the user is authenticated, the link will behave as normal
+        });
+    });
+        
 
 			hljs.initHighlightingOnLoad();
 
@@ -414,6 +436,7 @@ $('.hero__scroll').on('click', function(e) {
         });
     
     });
+    
     
 </script>
 
