@@ -50,6 +50,13 @@ app.get('/terms-of-use', (req, res) => {
   });
 });
 
+app.get('/privacy-policy', (req, res) => {
+  res.render('PP', {
+    title: 'Privacy Policy',
+    
+  });
+});
+
 app.post('/send-email', async (req, res) => {
   const { email, phone, message } = req.body;
   // Create a Nodemailer transporter using your email provider
