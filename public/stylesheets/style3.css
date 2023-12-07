@@ -1,113 +1,127 @@
-/* Updated CSS */
+
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: rgb(255, 255, 255);
-    background-image: url("https://www.womenoftheelca.org/wp-content/uploads/2019/03/KateElliotttunacasserole.jpg");
-    background-repeat: no-repeat; /* Prevent image repetition */
-    background-size: cover; /* Fit the image to cover the entire container */
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  background-color: #212529;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: max-content;
+  overflow-x: hidden;
 }
 
+
 #chat-container {
-    width: 900px;
-    height: 80vh;
-    overflow-y: auto;
-    background-color: rgba(38, 40, 73, 0.7); /* Set the background color with transparency */
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-    color: #fffefe;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding-bottom: 10px;
+  width: 100%;
+  height: 95vh;
+  overflow-y: auto;
+  background-color: #212529; /* Set the background color with transparency */
+  border-radius: 0;
+  color: #fffefe;
+  text-align: center;
+  padding-bottom: 10px;
 }
-.result-container {
-    padding: 20px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+
+#result-container {
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-height: calc(100vh - 150px); /* Adjust the height to accommodate the chat form */
+  margin-bottom: 80px; /* Ensure space at the bottom for the chat form */
 }
 
 .chat-bubble {
-    padding: 10px;
-    border-radius: 8px;
-    margin: 5px;
-    max-width: 80%;
+  padding: 10px 15px; /* Adjust the padding as desired */
+  border-radius: 8px;
+  margin: 5px 15px; /* Adjust the margins as desired */
+  max-width: 50%; /* Limit the maximum width of the chat bubble */
+  word-wrap: break-word; /* Enable word wrapping to prevent overflow */
 }
 
+
 .user-bubble {
-    background-color: rgb(92, 0, 230);
-    align-self: flex-end;
-    margin-left: auto;
-    text-align: right; /* Align user messages to the right */
+  background-color: rgb(216, 177, 34, 1);
+  align-self: flex-end;
+  margin-left: auto;
+  text-align: right;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  padding: 10px 15px; /* Adjust the padding as desired */
+  border-radius: 8px;
+  margin: 5px 300px; /* Adjust the margins as desired */
+  max-width: 50%;
 }
 
 .chat-gpt-bubble {
-    background-color: #5c5c5c;
-    align-self: flex-start;
-    margin-right: auto;
-    white-space: pre-line;
-    text-align: left; /* Align bot messages to the left */
+  background-color: #9c9c9c;
+  align-self: flex-start;
+  margin-right: auto;
+  white-space: pre-line;
+  text-align: left;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  padding: 10px 15px; /* Adjust the padding as desired */
+  border-radius: 8px;
+  margin: 5px 300px; /* Adjust the margins as desired */
+  max-width: 50%;
 }
 
 #chat-form {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(38, 40, 73, 0.7); /* Update background color with transparency */
-    padding: 10px;
-    margin-top: 10px; /* Add margin to separate from the chat container */
-    border-radius: 0 0 8px 8px; /* Add border-radius to match the chat container */
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 5px;
+  padding-bottom: 15px;
+  border-radius: 10px 10px 0 0;
+  z-index: 1000;
+  backdrop-filter: blur(10px); /* Apply a blurry effect */
 }
+
+
 
 #prompt {
-    flex-grow: 1;
-    padding: 8px;
-    margin-right: 10px;
-    border: none;
-    border-radius: 4px;
-    width: calc(100% - 90px); /* Adjust width to fit within the container */
-    background-color: #fff; /* Set input field background color */
+  flex-grow: 1;
+  padding: 13px 20px; /* Adjust padding as needed */
+  margin-right: 10px;
+  border: none;
+  border-radius: 100px;
+  background-color: rgba(255, 255, 255, 0.8);
+  width: 80%; /* Set the width as needed */
+  max-width: 1100px; /* Set a maximum width if required */
+  box-sizing: border-box; /* Ensure padding is included in the width */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
-.button-sub  {
-padding: 8px; /* Increase button padding for better appearance */
-font-family: "Open Sans", sans-serif;
-font-size: 16px;
-letter-spacing: 2px;
-text-decoration: none;
-text-transform: uppercase;
-color: #000;
-cursor: pointer;
-margin-right: 20px;
-border: 3px solid;
-box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
-position: relative;
-user-select: none;
--webkit-user-select: none;
-touch-action: manipulation;
-width: 100px; /* Adjust width for the button */
+.button-sub {
+  padding: 8px; /* Increase button padding for better appearance */
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #000;
+  cursor: pointer;
+  margin-right: 20px;
+  border: 3px solid;
+  box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
 }
 
 .button-sub:active {
-box-shadow: 0px 0px 0px 0px;
-top: 5px;
-left: 5px;
+  box-shadow: 0px 0px 0px 0px;
+  top: 5px;
+  left: 5px;
 }
 
 @media (min-width: 768px) {
-.button-sub {
-  padding: 0.25em 0.75em;
-}
+  .button-sub {
+      padding: 0.25em 0.75em;
+  }
 }
 
 
@@ -139,4 +153,66 @@ left: 5px;
   .button-54 {
     padding: 0.25em 0.75em;
   }
+}
+
+.header-content {
+  margin-top: 300px; /* Adjust as needed */
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  text-decoration: none;
+  background-color: rgba(146, 146, 146, 0.397);
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+  overflow-y: hidden; /* Hide vertical scrollbar by default */
+  padding: 30px 0; /* Increase padding to make the navbar larger */
+}
+
+.navbar-brand h1 {
+  font-size: 35px; /* Increase font size for the "FoodBot" brand */
+  color: #ffc800; /* Change the color of the "FoodBot" title to yellow */
+  margin: 0; /* Remove default margins */
+  padding-left: 10rem;
+}
+
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  padding-left: 0;
+  margin-right: 20px; /* Adjust the right margin for alignment */
+}
+
+.navbar-nav .nav-item {
+  padding-right: 10rem;
+}
+
+.navbar-nav .nav-link {
+  color: #ffc800; /* Match color with the "FoodBot" brand */
+  text-decoration: none;
+  transition: color 0.3s ease; /* Smooth color transition */
+}
+
+.navbar-nav .nav-link:hover {
+  color: #fff; /* Change color on hover to white */
+}
+
+
+.header-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 300px; /* Adjust margin top for centering */
+  padding-bottom: 50px; /* Add some bottom padding */
+}
+
+.header-content h1 {
+  font-size: 4rem; /* Set a default large size for the title */
+  margin: 0;
+  transition: font-size 0.3s ease; /* Enable smooth size transition */
 }

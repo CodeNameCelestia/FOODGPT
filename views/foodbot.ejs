@@ -5,46 +5,71 @@
   <title>FoodGPT</title>
   <link rel="icon" href="https://i.imgur.com/fgmRaeZ.gif" type="image/x-icon" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/stylesheets/style3.css" />
-
-  <link rel="stylesheet" href="/stylesheets/style.css" />
   <link rel="stylesheet" href="/stylesheets/style2.css" />
+  <link rel="stylesheet" href="/stylesheets/style3.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-    <div class="container">
-      <a class="navbar-brand" href="/">
-          <h1>FoodBot</h1></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          Menu
-          <i class="fas fa-bars ms-1"></i>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-              <li class="nav-item"><a class="nav-link" href="/">Homepage</a></li>
-              <% if(!isAuthenticated) { %>
-                  <li class="nav-item"><a class="nav-link login-link" href="/login/">Login</a></li>
-              <% } else { %>
-                  <li class="nav-item"><a class="nav-link" href="/logout/">Logout</a></li>
-              <% } %>
-          </ul>
+    <div class="container" style="display: flex; justify-content: space-between;">
+      <a class="navbar-brand" href="/" style="padding-left: 20px; text-decoration: none;">
+        <h1 style="font-family: 'Montserrat', sans-serif;">FoodBot</h1>
+      </a>
+      <div class="collapse navbar-collapse" id="navbarResponsive" style="margin-top: 10px;">
+        <ul class="navbar-nav text-uppercase" style="margin: 0; padding: 0; list-style: none; display: flex; align-items: center;">
+          <li class="nav-item">
+            <a class="nav-link" href="/" style="text-decoration: none; color: #fff;">Homepage</a>
+          </li>
+          <% if(!isAuthenticated) { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/login/" style="text-decoration: none; color: #fff;">Login</a>
+          </li>
+          <% } else { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout/" style="text-decoration: none; color: #fff;">Logout</a>
+          </li>
+          <% } %>
+        </ul>
       </div>
-  </div>
-    </nav>
-<!-- <a href="/"><button class="button-54" role="button">Homepage</button></a> -->
-  <div id="chat-container" class="chat-container">
-    <h1><img src="https://i.imgur.com/fgmRaeZ.gif" alt="Logo" width="30" height="30"> FoodGPT Chat</h1>
-    <div id="result-container" class="result-container">
-        <!-- Previous prompts and responses will be added here dynamically -->
     </div>
-    <form id="chat-form" class="chat-form">
-        <input type="text" id="prompt" name="prompt" required placeholder="Message FoodGPT" class="prompt">
-        <button type="button" onclick="submitPrompt()" class="button-sub">Submit</button>
-    </form>
+  </nav>
+<!-- <a href="/"><button class="button-54" role="button">Homepage</button></a> -->
+<div id="chat-container" class="chat-container">
+  <div class="header-content">
+    <h1 id="logo-text">FoodGPT Chat</h1>
+  </div>
+  <div id="result-container" class="result-container">
+    <!-- Previous prompts and responses will be added here dynamically -->
+  </div>
+  <form id="chat-form" class="chat-form">
+    <input type="text" id="prompt" name="prompt" required placeholder="Message FoodGPT" class="prompt">
+    <button type="button" onclick="submitPrompt()" class="button-sub">Submit</button>
+  </form>
 </div>
 
 
     <script>
+function changeTitleSize(size) {
+    document.getElementById('logo-text').style.fontSize = size;
+  }
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const chatContainer = document.getElementById('chat-container');
+  const resultContainer = document.getElementById('result-container');
+  const chatForm = document.getElementById('chat-form');
+
+  resultContainer.addEventListener('scroll', () => {
+    const isScrolledToTop = resultContainer.scrollTop < 200; // Adjust this value as needed
+    if (isScrolledToTop) {
+      chatContainer.classList.remove('bottom-at-viewport-top');
+    } else {
+      chatContainer.classList.add('bottom-at-viewport-top');
+    }
+  });
+});
+
+
 async function typeWriterEffect(element, text, speed) {
   let currentChar = 0;
   const typeWriterInterval = setInterval(() => {
@@ -66,7 +91,7 @@ async function submitPrompt() {
   // Create a new paragraph for the user prompt
   const userPrompt = document.createElement('p');
   userPrompt.classList.add('chat-bubble', 'user-bubble');
-  userPrompt.innerHTML = 'User: ' + prompt;
+  userPrompt.innerHTML = '<%= user.nickname%>: ' + prompt;
   resultContainer.appendChild(userPrompt);
 
   // You may want to use fetch or another method to send the prompt to your server
@@ -96,6 +121,7 @@ async function submitPrompt() {
   // Adjust the height of the result container
   resultContainer.scrollTop = resultContainer.scrollHeight;
 }
+
     </script>
 </body>
 </html>
