@@ -43,6 +43,13 @@ app.get('/foodbot', (req, res) => {
   });
 });
 
+app.get('/terms-of-use', (req, res) => {
+  res.render('ToU', {
+    title: 'Terms of Use',
+    
+  });
+});
+
 app.post('/send-email', async (req, res) => {
   const { email, phone, message } = req.body;
   // Create a Nodemailer transporter using your email provider
