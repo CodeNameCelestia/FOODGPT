@@ -32,20 +32,43 @@ app.post('/chat', async (req, res) => {
   res.json({ reply: chatGPTReply });
 });
 
+
+const bypassAuth = (req, res, next) => {
+  const bypassParam = req.query.bypass;
+  if (bypassParam === 'true') {
+    req.bypassAuth = true;
+  }
+  next();
+};
+
 // Auth middleware using config
+app.use(bypassAuth);
 app.use(auth(config));
 
 app.get('/foodbot', (req, res) => {
+  // Check if bypassAuth flag is set
+  const isAuthenticated = req.bypassAuth ? true : req.oidc.isAuthenticated();
+
+  // If bypass query parameter is true, set a custom user object with the nickname 'admin'
+  const user = req.query.bypass === 'true' ? { nickname: 'admin' } : req.oidc.user;
+
+  // Use the baseURL from config to construct the URL
+  const foodbotURL = '/foodbot';
+
+
   res.render('foodbot', { 
     title: 'FOODGPT',
-    isAuthenticated: req.oidc.isAuthenticated(),
-    user: req.oidc.user,
+    isAuthenticated: isAuthenticated,
+    user: user,
+    foodbotURL: foodbotURL, // Pass the constructed URL to the template
   });
 });
 
 app.get('/terms-of-use', (req, res) => {
   res.render('ToU', {
     title: 'Terms of Use',
+    isAuthenticated: req.oidc.isAuthenticated(),
+    user: req.oidc.user,
     
   });
 });
@@ -53,6 +76,8 @@ app.get('/terms-of-use', (req, res) => {
 app.get('/privacy-policy', (req, res) => {
   res.render('PP', {
     title: 'Privacy Policy',
+    isAuthenticated: req.oidc.isAuthenticated(),
+    user: req.oidc.user,
     
   });
 });
@@ -90,6 +115,8 @@ app.post('/send-email', async (req, res) => {
 
 app.use('/', indexRouter);
 
-app.listen(3000, () => {
-    console.log('IT IS RUNNING ON 3000');
+app.listen(3000, '0.0.0.0', () => {
+  console.log('Server is running on port 3000');
 });
+
+

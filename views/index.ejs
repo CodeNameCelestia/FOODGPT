@@ -44,9 +44,10 @@
             <% } %>
             <div class="masthead-heading text-uppercase">It's Nice To Meet You</div>
             <a id="tryMeNowButton" class="btn btn-primary btn-xl text-uppercase" href="http://localhost:3000/foodbot">
-                <img src="https://i.imgur.com/fgmRaeZ.gif" alt="Logo" width="30" height="30">  Try Me Now
+                <img src="https://cdn.discordapp.com/attachments/747678686181851199/1182932315513561118/ezgif.com-gif-maker.gif?ex=65867e91&is=65740991&hm=970cefec12ba6c09cce6d3f4cd11a475a5e677b738615c3736231fbab5c99912&" alt="Logo" width="30" height="30">  Try Me Now
             </a>
         </div>
+        <a class="phoneLink" href="">or click this if you are on a phone</a>
     </header>
     
     <!-- Services-->
@@ -225,7 +226,7 @@
                     <div class="col-lg-6">
                         <div class="code code--small code--left aos-init aos-animate" data-aos="zoom-in-down">
                         <div class="team-member">
-                            <img class="mx-auto rounded-circle" src="https://cdn.discordapp.com/attachments/895310788527554570/1182209161048641616/386875374_1994264280949137_7953697284808082247_n.jpg?ex=6583dd14&is=65716814&hm=c9de68f98398963a74edcf7a4daef9856eb9c89378a47bee829bdbf6a916b350&" alt="..." />
+                            <img class="mx-auto rounded-circle" src="https://i.imgur.com/9f9oVRp.jpg" alt="..." height=""/>
                             <h4>Thonjen P. Banguis</h4>
                             <p class="text-muted">Lead Developer</p>
                         </div>
@@ -306,13 +307,13 @@
             <div class="row align-items-center">
                 <div class="col-lg-4 text-lg-start">Copyright &copy; FOODGPT Website 2023</div>
                 <div class="col-lg-4 my-3 my-lg-0">
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i class="fab fa-twitter">
+                    <a class="btn btn-dark btn-social mx-2" href="https://twitter.com/Gr33D4Depress?s=07&fbclid=IwAR1hBFPnl6iLzbT5yOs_rPVO7M6Ye8A_Jqp9GaQJvzLHiCHicaKrQv9NJfM" aria-label="Twitter" target="_blank><i class="fab fa-twitter">
                         <img height="30rem" width="30rem" src="https://cdn-icons-png.flaticon.com/128/3670/3670151.png">
                     </i></a>
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i class="fab fa-facebook-f">
+                    <a class="btn btn-dark btn-social mx-2" href="https://www.facebook.com/profile.php?id=100009494573792" aria-label="Facebook" target="_blank><i class="fab fa-facebook-f">
                         <img height="30rem" width="30rem" src="https://cdn-icons-png.flaticon.com/128/145/145802.png">
                     </i></a>
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i>
+                    <a class="btn btn-dark btn-social mx-2" href="https://www.reddit.com/user/PU-CIT" aria-label="LinkedIn" target="_blank><i class="fab fa-linkedin-in"></i>
                         <img height="30rem" width="30rem" src="https://cdn-icons-png.flaticon.com/128/3670/3670005.png">
                     </a>
                 </div>
@@ -338,6 +339,44 @@
     </script>
 
     <script>
+        // bypass=true 
+        var mobileLink = "";
+        var desktopLink = "http://localhost:3000/foodbot?bypass=true";
+        var phoneLink = document.querySelector('.phoneLink');
+        
+        function isMobile() {
+            return window.innerWidth <= 600; // Adjust the width as needed
+        }
+
+        function updatePhoneLinkVisibility() {
+            phoneLink.style.display = isMobile() ? 'block' : 'none';
+            phoneLink.href = isMobile() ? mobileLink : desktopLink;
+
+        }
+
+        // Initial visibility check
+        updatePhoneLinkVisibility();
+
+        // Update visibility on window resize
+        window.addEventListener('resize', updatePhoneLinkVisibility);
+
+if (window.innerWidth <= 750) {
+            // Select all elements with data-aos="fade-left" and replace with data-aos="fade-right"
+            var fadeLeftElements = document.querySelectorAll('[data-aos="fade-left"]');
+            fadeLeftElements.forEach(function(element) {
+                element.setAttribute('data-aos', 'fade-right');
+            });
+
+            // Select all elements with data-aos="zoom-out-up" and replace with data-aos="fade-up"
+            var zoomOutUpElements = document.querySelectorAll('[data-aos="zoom-out-up"]');
+            zoomOutUpElements.forEach(function(element) {
+                element.setAttribute('data-aos', 'fade-up');
+            });
+
+                
+
+        }
+
 document.getElementById('submitButton').addEventListener('click', async function () {
         const email = document.getElementById('email').value;
         const phone = document.getElementById('phone').value;
@@ -376,6 +415,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 event.preventDefault();
                 // You can show a message to the user or perform other actions
                 alert('Please log in to access this feature');
+                window.location.href = '/login/';
             }
             // If the user is authenticated, the link will behave as normal
         });

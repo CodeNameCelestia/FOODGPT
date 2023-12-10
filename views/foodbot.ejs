@@ -10,29 +10,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-    <div class="container" style="display: flex; justify-content: space-between;">
-      <a class="navbar-brand" href="/" style="padding-left: 20px; text-decoration: none;">
-        <h1 style="font-family: 'Montserrat', sans-serif;">FoodBot</h1>
-      </a>
-      <div class="collapse navbar-collapse" id="navbarResponsive" style="margin-top: 10px;">
-        <ul class="navbar-nav text-uppercase" style="margin: 0; padding: 0; list-style: none; display: flex; align-items: center;">
-          <li class="nav-item">
-            <a class="nav-link" href="/" style="text-decoration: none; color: #fff;">Homepage</a>
-          </li>
-          <% if(!isAuthenticated) { %>
-          <li class="nav-item">
-            <a class="nav-link" href="/login/" style="text-decoration: none; color: #fff;">Login</a>
-          </li>
-          <% } else { %>
-          <li class="nav-item">
-            <a class="nav-link" href="/logout/" style="text-decoration: none; color: #fff;">Logout</a>
-          </li>
-          <% } %>
-        </ul>
-      </div>
+  <a href="/" class="back-to-home-button">
+    <div class="button-box">
+      <img class="button-icon" src="https://cdn.discordapp.com/attachments/747678686181851199/1183384313006391317/back.png?ex=65882386&is=6575ae86&hm=b7ec36dcb2c5ad0c0913f2c0519db31308ba796587d3a2dab1bf15bd61199feb&" alt="Back Icon">
+      <span class="button-title">Back to Home</span>
     </div>
-  </nav>
+  </a>
+
+  <a href="/foodbot" class="new-chat-button">
+  <div class="button-box">
+    <img class="button-icon" src="https://cdn.discordapp.com/attachments/747678686181851199/1183385867117678743/new.png?ex=658824f8&is=6575aff8&hm=e2ee7f466eed637697e556ca5daf57c3f5a04d8895b80e604569cf20f54b86d2&" alt="New Chat Icon">
+    <span class="button-title">New Chat</span>
+  </div>
+</a>
 <!-- <a href="/"><button class="button-54" role="button">Homepage</button></a> -->
 <div id="chat-container" class="chat-container">
   <div class="header-content">
@@ -41,7 +31,30 @@
   <div id="result-container" class="result-container">
     <!-- Previous prompts and responses will be added here dynamically -->
   </div>
-  <form id="chat-form" class="chat-form">
+
+  <form id="chat-form" class="chat-form" onsubmit="return submitForm();">
+    <div id="suggestion-boxes" class="suggestion-boxes">
+      <div class="suggestion-row">
+        <div class="suggestion" onclick="selectSuggestion('Give me something.')">
+          <div class="suggestion-title">Give Me Something.</div>
+          <div class="suggestion-subtitle">I dont have anyting in mind.</div>
+        </div>
+        <div class="suggestion" onclick="selectSuggestion('I\'m not feeling good.')">
+          <div class="suggestion-title">I'm Not Feeling Good.</div>
+          <div class="suggestion-subtitle">Give me food to cheer me up.</div>
+        </div>
+      </div>
+      <div class="suggestion-row">
+        <div class="suggestion" onclick="selectSuggestion('It\'s so hot here.')">
+          <div class="suggestion-title">It's So Hot Here.</div>
+          <div class="suggestion-subtitle">Recommend me foods to keep me cool.</div>
+        </div>
+        <div class="suggestion" onclick="selectSuggestion('It\'s raining today.')">
+          <div class="suggestion-title">It's Raining Today.</div>
+          <div class="suggestion-subtitle">Recommend me dishes to keep me warm.</div>
+        </div>
+      </div>
+    </div>
     <input type="text" id="prompt" name="prompt" required placeholder="Message FoodGPT" class="prompt">
     <button type="button" onclick="submitPrompt()" class="button-sub">Submit</button>
   </form>
@@ -49,6 +62,23 @@
 
 
     <script>
+
+function selectSuggestion(suggestionText) {
+  document.getElementById('prompt').value = suggestionText;
+  submitPrompt();
+}
+
+function selectSuggestion(suggestionText) {
+  document.getElementById('prompt').value = suggestionText;
+  submitPrompt();
+  document.getElementById('suggestion-boxes').style.display = 'none';
+}
+
+
+function submitForm() {
+  submitPrompt();
+  return false; // Prevents the default form submission behavior
+}
 function changeTitleSize(size) {
     document.getElementById('logo-text').style.fontSize = size;
   }
@@ -94,6 +124,8 @@ async function submitPrompt() {
   userPrompt.innerHTML = '<%= user.nickname%>: ' + prompt;
   resultContainer.appendChild(userPrompt);
 
+  const suggestionBoxes = document.getElementById('suggestion-boxes');
+  suggestionBoxes.style.display = 'none';
   // You may want to use fetch or another method to send the prompt to your server
   // and get the result. For simplicity, I'll simulate it here.
   const response = await fetch('/chat', {
@@ -120,7 +152,10 @@ async function submitPrompt() {
     
   // Adjust the height of the result container
   resultContainer.scrollTop = resultContainer.scrollHeight;
+
+  
 }
+
 
     </script>
 </body>

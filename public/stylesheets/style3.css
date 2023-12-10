@@ -26,6 +26,7 @@ body {
 #result-container {
   padding: 20px;
   overflow-y: auto;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -50,8 +51,11 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   padding: 10px 15px; /* Adjust the padding as desired */
   border-radius: 8px;
-  margin: 5px 300px; /* Adjust the margins as desired */
+  margin: 5px 200px; /* Adjust the margins as desired */
   max-width: 50%;
+  opacity: 0; /* Initially hide the chat bubble */
+  transform: translateY(100%); /* Start from bottom (100% down) */
+  animation: userBubbleAnimation 0.5s forwards ease-in-out; /* Define the animation */
 }
 
 .chat-gpt-bubble {
@@ -63,7 +67,7 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   padding: 10px 15px; /* Adjust the padding as desired */
   border-radius: 8px;
-  margin: 5px 300px; /* Adjust the margins as desired */
+  margin: 5px 200px; /* Adjust the margins as desired */
   max-width: 50%;
 }
 
@@ -156,58 +160,15 @@ body {
 }
 
 .header-content {
-  margin-top: 300px; /* Adjust as needed */
+  margin-top: 250px; /* Adjust as needed */
 }
-
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  text-decoration: none;
-  background-color: rgba(146, 146, 146, 0.397);
-  backdrop-filter: blur(5px);
-  z-index: 1000;
-  transition: background-color 0.3s ease;
-  overflow-y: hidden; /* Hide vertical scrollbar by default */
-  padding: 30px 0; /* Increase padding to make the navbar larger */
-}
-
-.navbar-brand h1 {
-  font-size: 35px; /* Increase font size for the "FoodBot" brand */
-  color: #ffc800; /* Change the color of the "FoodBot" title to yellow */
-  margin: 0; /* Remove default margins */
-  padding-left: 10rem;
-}
-
-.navbar-nav {
-  display: flex;
-  align-items: center;
-  padding-left: 0;
-  margin-right: 20px; /* Adjust the right margin for alignment */
-}
-
-.navbar-nav .nav-item {
-  padding-right: 10rem;
-}
-
-.navbar-nav .nav-link {
-  color: #ffc800; /* Match color with the "FoodBot" brand */
-  text-decoration: none;
-  transition: color 0.3s ease; /* Smooth color transition */
-}
-
-.navbar-nav .nav-link:hover {
-  color: #fff; /* Change color on hover to white */
-}
-
 
 .header-content {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 300px; /* Adjust margin top for centering */
+  margin-top: 250px; /* Adjust margin top for centering */
   padding-bottom: 50px; /* Add some bottom padding */
 }
 
@@ -215,4 +176,174 @@ body {
   font-size: 4rem; /* Set a default large size for the title */
   margin: 0;
   transition: font-size 0.3s ease; /* Enable smooth size transition */
+}
+
+
+#logo-text {
+  font-size: 4rem; /* Set a default large size for the title */
+  margin: 0;
+  background: linear-gradient(45deg, #ffc800, #ffdd00); /* Set gradient colors */
+  background-clip: text; /* Clip the text to show the gradient */
+  -webkit-background-clip: text; /* For Safari */
+  color: transparent; /* Hide the original text color */
+  animation: colorChange 5s infinite linear; /* Set the animation */
+}
+
+@keyframes colorChange {
+  0% {
+    filter: hue-rotate(-10deg); /* Start color for the animation */
+  }
+  100% {
+    filter: hue-rotate(10deg); /* End color for the animation */
+  }
+}
+
+@media (max-width: 767px) {
+ .user-bubble{
+    margin: 5px 1vh;
+ }
+
+ .chat-gpt-bubble{
+    margin:5px 1vh;
+    max-width: 70%;
+ }
+
+ #prompt{
+  width: 60%;
+ }
+}
+
+.suggestion-boxes {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.suggestion-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px; /* Increased margin between rows */
+}
+
+.suggestion {
+  flex: 1 0 calc(66% - 20vh); /* Adjusted width with space between boxes */
+  max-width: calc(66% - 20vh); /* Adjusted max-width */
+  padding: 20px; /* Increased padding for better appearance */
+  border: 2px solid #9c9c9c; /* Matched border color with chat GPT bubble */
+  border-radius: 8px; /* Matched border radius with chat GPT bubble */
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+  position: relative;
+}
+
+.suggestion:hover {
+  background-color: #f0f0f06b;
+}
+
+.suggestion-title {
+  font-weight: bold;
+  text-align: left; /* Align title to the left */
+  margin-bottom: 8px; /* Adjust margin for space between title and subtitle */
+}
+
+.suggestion-subtitle {
+  font-size: 14px;
+  opacity: 0.6;
+  text-align: left; /* Align subtitle to the left */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+  .suggestion-row {
+    /* Keep the row layout */
+    flex-direction: row;
+    flex-wrap: wrap; /* Allow suggestions to wrap onto new lines */
+    justify-content: space-around; /* Distribute suggestions evenly */
+  }
+
+  .suggestion {
+    /* Adjusted width and font size for smaller screens */
+    flex: 1 0 calc(50% - 10vh);
+    max-width: calc(58% - 10vh);
+    font-size: 9px; /* Decreased font size for smaller screens */
+    margin-bottom: 1px;
+  }
+
+  .suggestion-subtitle {
+    /* Match subtitle font size with adjusted font size */
+    font-size: 7px;
+  }
+}
+
+
+
+@keyframes userBubbleAnimation {
+  from {
+    opacity: 0;
+    transform: translateY(100%); /* Start from bottom */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); /* Move upwards (to 0) */
+  }
+}
+
+.back-to-home-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1001;
+}
+
+.button-box {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #33363a; /* Adjust alpha (last value) for transparency */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.button-icon {
+  margin-right: 10px;
+  width: 25px; /* Adjust the width of the icon */
+  height: 25px; /* Adjust the height of the icon */
+}
+
+
+.button-title {
+  font-weight: bold;
+  font-size: 16px;
+  color: white; /* Set text color to white */
+}
+
+
+.new-chat-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1001;
+}
+
+.new-chat-button .button-box {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #33363ac9; /* Adjust alpha (last value) for transparency */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.new-chat-button .button-icon {
+  margin-right: 10px;
+  width: 25px; /* Adjust the width of the icon */
+  height: 25px; /* Adjust the height of the icon */
+}
+
+.new-chat-button .button-title {
+  font-weight: bold;
+  font-size: 16px;
+  color: white; /* Set text color to white */
 }
